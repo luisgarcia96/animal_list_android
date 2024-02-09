@@ -10,13 +10,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.animals.safety.data.Animal;
 import com.animals.safety.databinding.ItemAnimalBinding;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class AnimalCardAdapter extends RefreshableAdapter<AnimalCardAdapter.AnimalViewHolder> {
 
     OnAnimalClickListener clickListener;
 
-    public AnimalCardAdapter(ArrayList<Animal> data, OnAnimalClickListener clickListener) {
+    public AnimalCardAdapter(List<Animal> data, OnAnimalClickListener clickListener) {
         this.clickListener = clickListener;
         refresh(data);
     }
