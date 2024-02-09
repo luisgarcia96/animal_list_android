@@ -1,28 +1,31 @@
-package com.animals.safety.data;
+package com.animals.safety.data
 
-import androidx.annotation.DrawableRes;
-import androidx.annotation.StringRes;
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
+import com.animals.safety.R
 
-import com.animals.safety.R;
-
-public enum Breed {
-    CAT, COW, DOG, LAMA;
-
-    public @StringRes int getTranslatedName() {
-        return switch (this) {
-            case CAT -> R.string.breed_cat;
-            case COW -> R.string.breed_cow;
-            case DOG -> R.string.breed_dog;
-            case LAMA -> R.string.breed_lama;
-        };
+enum class Breed {
+  CAT,
+  COW,
+  DOG,
+  LAMA;
+  
+  @get:StringRes
+  val translatedName: Int
+    get() = when (this) {
+      CAT -> R.string.breed_cat
+      COW -> R.string.breed_cow
+      DOG -> R.string.breed_dog
+      LAMA -> R.string.breed_lama
     }
-
-    public @DrawableRes int getCover() {
-        return switch (this) {
-            case CAT -> R.drawable.img_cat;
-            case COW -> R.drawable.img_cow;
-            case DOG -> R.drawable.img_dog;
-            case LAMA -> R.drawable.img_lama;
-        };
+  
+  @get:DrawableRes
+  val cover: Int
+    get() = when (this) {
+      CAT -> R.drawable.img_cat
+      COW -> R.drawable.img_cow
+      DOG -> R.drawable.img_dog
+      LAMA -> R.drawable.img_lama
     }
+  
 }
