@@ -1,18 +1,17 @@
-package com.animals.safety.adapter;
+package com.animals.safety.adapter
 
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView
+import com.animals.safety.adapter.AnimalCardAdapter.AnimalViewHolder
+import com.animals.safety.data.Animal
 
-import com.animals.safety.data.Animal;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public abstract class RefreshableAdapter<T extends AnimalCardAdapter.AnimalViewHolder> extends RecyclerView.Adapter<T> {
-    protected ArrayList<Animal> data = new ArrayList<>();
-
-    public void refresh(List<Animal> data) {
-        this.data.clear();
-        this.data.addAll(data);
-        notifyDataSetChanged();
-    }
+abstract class RefreshableAdapter<T : AnimalViewHolder?> : RecyclerView.Adapter<T>() {
+  
+  protected var data = mutableListOf<Animal>()
+  
+  fun refresh(data: List<Animal>) {
+    this.data.clear()
+    this.data.addAll(data)
+    notifyDataSetChanged()
+  }
+  
 }
