@@ -1,5 +1,6 @@
 plugins {
   id("com.android.application")
+  id("org.jetbrains.kotlin.android")
 }
 
 android {
@@ -42,6 +43,7 @@ dependencies {
   implementation("androidx.constraintlayout:constraintlayout:2.1.4")
   implementation("androidx.navigation:navigation-fragment:2.6.0")
   implementation("androidx.navigation:navigation-ui:2.6.0")
+  implementation("androidx.core:core-ktx:+")
   
   testImplementation("junit:junit:4.13.2")
   
