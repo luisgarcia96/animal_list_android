@@ -8,6 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.animals.safety.data.AnimalData
+import com.animals.safety.screens.AnimalDetailsScreen
 import com.animals.safety.screens.HomeScreen
 import com.animals.safety.screens.Screen
 import com.animals.safety.ui.theme.AimantsDanimauxTheme
@@ -37,8 +39,21 @@ fun AimantsDanimauxNavHost(navHostController: NavHostController) {
     composable(route = Screen.Home.route) {
       HomeScreen(
         onAnimalClick = {
-
+          navHostController.navigate(
+            Screen.AnimalDetails.createRoute(
+              animalId = it.id.toString()
+            )
+          )
         }
+      )
+    }
+    composable(
+      route = Screen.AnimalDetails.route,
+      arguments = Screen.AnimalDetails.navArguments
+    ) {
+      AnimalDetailsScreen(
+        animal = AnimalData.findAnimalById(it.arguments?.getString("animalId") ?: ""),
+        onBackClick = { navHostController.navigateUp() }
       )
     }
   }
