@@ -1,34 +1,26 @@
 package com.animals.safety
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.navigateUp
-import androidx.navigation.ui.NavigationUI.setupActionBarWithNavController
-import com.animals.safety.databinding.ActivityMainBinding
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.ui.Modifier
+import com.animals.safety.ui.theme.AimantsDanimauxTheme
 
-class MainActivity : AppCompatActivity() {
-  
-  private lateinit var appBarConfiguration: AppBarConfiguration
-  
-  private lateinit var binding: ActivityMainBinding
-  
+class MainActivity : ComponentActivity() {
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    
-    binding = ActivityMainBinding.inflate(layoutInflater)
-    setContentView(binding.root)
-    setSupportActionBar(binding.toolbar)
-    
-    val navController = findNavController(this, R.id.nav_host_fragment_content_main)
-    appBarConfiguration = AppBarConfiguration.Builder(navController.graph).build()
-    setupActionBarWithNavController(this, navController, appBarConfiguration)
+
+    setContent {
+      AimantsDanimauxTheme {
+        // A surface container using the 'background' color from the theme
+        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
+        }
+      }
+    }
   }
-  
-  override fun onSupportNavigateUp(): Boolean {
-    val navController = findNavController(this, R.id.nav_host_fragment_content_main)
-    return (navigateUp(navController, appBarConfiguration) || super.onSupportNavigateUp())
-  }
-  
+
 }
