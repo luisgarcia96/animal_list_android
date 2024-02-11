@@ -8,6 +8,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.animals.safety.screens.HomeScreen
 import com.animals.safety.screens.Screen
 import com.animals.safety.ui.theme.AimantsDanimauxTheme
 
@@ -34,7 +35,11 @@ fun AimantsDanimauxNavHost(navHostController: NavHostController) {
     startDestination = Screen.Home.route
   ) {
     composable(route = Screen.Home.route) {
-      
+      HomeScreen(
+        onAnimalClick = {
+
+        }
+      )
     }
   }
 }
