@@ -45,14 +45,6 @@ android {
 dependencies {
   implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
 
-  //todo: remove dependencies after compose migration
-  implementation("androidx.appcompat:appcompat:1.6.1")
-  implementation("com.google.android.material:material:1.9.0")
-  implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-  implementation("androidx.navigation:navigation-fragment:2.6.0")
-  implementation("androidx.navigation:navigation-ui:2.6.0")
-  implementation("androidx.core:core-ktx:+")
-
   implementation(platform("androidx.compose:compose-bom:2024.02.00"))
   implementation("androidx.compose.ui:ui")
   implementation("androidx.compose.ui:ui-graphics")
