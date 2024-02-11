@@ -10,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.animals.safety.data.AnimalData
 import com.animals.safety.screens.AnimalDetailsScreen
+import com.animals.safety.screens.CreateAnimalScreen
 import com.animals.safety.screens.HomeScreen
 import com.animals.safety.screens.Screen
 import com.animals.safety.ui.theme.AimantsDanimauxTheme
@@ -44,6 +45,9 @@ fun AimantsDanimauxNavHost(navHostController: NavHostController) {
               animalId = it.id.toString()
             )
           )
+        },
+        onFABClick = {
+          navHostController.navigate(Screen.CreateAnimal.route)
         }
       )
     }
@@ -54,6 +58,12 @@ fun AimantsDanimauxNavHost(navHostController: NavHostController) {
       AnimalDetailsScreen(
         animal = AnimalData.findAnimalById(it.arguments?.getString("animalId") ?: ""),
         onBackClick = { navHostController.navigateUp() }
+      )
+    }
+    composable(route = Screen.CreateAnimal.route) {
+      CreateAnimalScreen(
+        onBackClick = { navHostController.navigateUp() },
+        onSaveClick = { navHostController.navigateUp() }
       )
     }
   }

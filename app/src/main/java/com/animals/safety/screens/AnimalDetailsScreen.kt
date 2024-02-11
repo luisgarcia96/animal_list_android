@@ -59,7 +59,7 @@ private fun AnimalDetails(
   animal: Animal,
 )
 {
-  //TODO
+  //TODO: A compléter
 }
 
 @Preview(showBackground = true)

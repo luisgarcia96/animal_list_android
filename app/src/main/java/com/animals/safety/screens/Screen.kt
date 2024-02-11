@@ -18,4 +18,6 @@ sealed class Screen(
   ) {
     fun createRoute(animalId: String) = "animalDetails/$animalId"
   }
+
+  data object CreateAnimal : Screen("createAnimal")
 }

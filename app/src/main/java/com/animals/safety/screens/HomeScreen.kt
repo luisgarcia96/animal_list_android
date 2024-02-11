@@ -35,6 +35,7 @@ fun HomeScreen(
   modifier: Modifier = Modifier,
   animals: List<Animal> = AnimalData.animals,
   onAnimalClick: (Animal) -> Unit = {},
+  onFABClick: () -> Unit = {},
 ) {
   Scaffold(
     modifier = modifier,
@@ -49,7 +50,7 @@ fun HomeScreen(
     floatingActionButton = {
       FloatingActionButton(
         onClick = {
-          //TODO
+          onFABClick()
         }
       ) {
         Icon(
@@ -89,7 +90,7 @@ private fun HomeCell(
   animal: Animal,
   onAnimalClick: (Animal) -> Unit,
 ) {
-  //TODO
+  //TODO: A compléter
   Box(
     modifier = Modifier
       .fillMaxWidth()
