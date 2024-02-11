@@ -21,10 +21,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.animals.safety.R
 import com.animals.safety.data.Animal
 import com.animals.safety.data.AnimalData
+import com.animals.safety.data.Breed
+import com.animals.safety.ui.theme.AimantsDanimauxTheme
+import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -76,7 +80,7 @@ private fun HomeListScreen(
         animal = animal,
         onAnimalClick = onAnimalClick
       )
-      HorizontalDivider(color = Color.Black)
+      HorizontalDivider()
     }
   }
 }
@@ -95,4 +99,15 @@ private fun HomeCellScreen(
         onAnimalClick
       }
   )
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun HomeCellScreenPreview() {
+  AimantsDanimauxTheme(dynamicColor = false) {
+    HomeCellScreen(
+      animal = Animal(UUID.randomUUID(),"Milou", Breed.DOG, 6, 23.2f, 42.4f),
+      onAnimalClick = {}
+    )
+  }
 }
