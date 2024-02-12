@@ -18,7 +18,7 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -45,11 +45,11 @@ fun CreateAnimalScreen(
   val scope = rememberCoroutineScope()
   val snackbarHostState = remember { SnackbarHostState() }
 
-  val name by remember { mutableStateOf("") }
-  val breed by remember { mutableStateOf(Breed.entries[0]) }
-  val age by remember { mutableStateOf("") }
-  val weight by remember { mutableStateOf("") }
-  val height by remember { mutableStateOf("") }
+  val name = remember { mutableStateOf("") }
+  val breed = remember { mutableStateOf(Breed.entries[0]) }
+  val age = remember { mutableStateOf("") }
+  val weight = remember { mutableStateOf("") }
+  val height = remember { mutableStateOf("") }
 
   Scaffold(
     modifier = modifier,
@@ -77,7 +77,7 @@ fun CreateAnimalScreen(
     floatingActionButton = {
       ExtendedFloatingActionButton(
         onClick = {
-          if (verifyAndCreateAnimal(name, breed, age, weight, height, snackbarHostState, scope)) {
+          if (verifyAndCreateAnimal(name.value, breed.value, age.value, weight.value, height.value, snackbarHostState, scope)) {
             onSaveClick()
           }
         }
@@ -89,7 +89,12 @@ fun CreateAnimalScreen(
     }
   ) { contentPadding ->
     CreateAnimal(
-      modifier = Modifier.padding(contentPadding)
+      modifier = Modifier.padding(contentPadding),
+      name = name,
+      breed = breed,
+      age = age,
+      weight = weight,
+      height = height
     )
   }
 }
@@ -160,7 +165,14 @@ fun verifyAndCreateAnimal(
 }
 
 @Composable
-private fun CreateAnimal(modifier: Modifier = Modifier) {
+private fun CreateAnimal(
+  modifier: Modifier = Modifier,
+  name: MutableState<String>,
+  age: MutableState<String>,
+  weight: MutableState<String>,
+  height: MutableState<String>,
+  breed: MutableState<Breed>
+) {
   val scrollState = rememberScrollState()
 
   Column(
@@ -177,6 +189,18 @@ private fun CreateAnimal(modifier: Modifier = Modifier) {
 @Composable
 private fun CreateAnimalPreview() {
   AimantsDanimauxTheme(dynamicColor = false) {
-    CreateAnimal()
+    val name = remember { mutableStateOf("Milou") }
+    val breed = remember { mutableStateOf(Breed.entries[0]) }
+    val age = remember { mutableStateOf("6") }
+    val weight = remember { mutableStateOf("473.6") }
+    val height = remember { mutableStateOf("14.7") }
+
+    CreateAnimal(
+      name = name,
+      age = age,
+      weight = weight,
+      height = height,
+      breed = breed
+    )
   }
 }
