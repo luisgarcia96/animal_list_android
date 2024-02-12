@@ -42,7 +42,6 @@ fun CreateAnimalScreen(
   onSaveClick:() -> Unit
 ) {
   val scope = rememberCoroutineScope()
-  val scrollState = rememberScrollState()
   val snackbarHostState = remember { SnackbarHostState() }
 
   val name by remember { mutableStateOf("") }
@@ -88,14 +87,9 @@ fun CreateAnimalScreen(
       }
     }
   ) { contentPadding ->
-    Column(
-      modifier = modifier
-        .fillMaxSize()
-        .padding(contentPadding)
-        .verticalScroll(scrollState)
-    ) {
-      CreateAnimal()
-    }
+    CreateAnimal(
+      modifier = Modifier.padding(contentPadding)
+    )
   }
 }
 
@@ -165,8 +159,16 @@ fun verifyAndCreateAnimal(
 }
 
 @Composable
-private fun CreateAnimal() {
-  //TODO: A compléter
+private fun CreateAnimal(modifier: Modifier = Modifier) {
+  val scrollState = rememberScrollState()
+
+  Column(
+    modifier = modifier
+      .fillMaxSize()
+      .verticalScroll(scrollState)
+  ) {
+    //TODO: A compléter
+  }
 }
 
 @Preview(showBackground = true)
