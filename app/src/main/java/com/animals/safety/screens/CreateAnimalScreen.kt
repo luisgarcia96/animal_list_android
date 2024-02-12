@@ -165,10 +165,7 @@ fun verifyAndCreateAnimal(
 }
 
 @Composable
-private fun CreateAnimal(
-  modifier: Modifier = Modifier,
-)
-{
+private fun CreateAnimal() {
   //TODO: A compléter
 }
 
