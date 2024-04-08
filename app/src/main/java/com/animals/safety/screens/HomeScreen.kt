@@ -55,7 +55,7 @@ fun HomeScreen(
       ) {
         Icon(
           imageVector = Icons.Filled.Add,
-          contentDescription = "Add an animal"
+          contentDescription = stringResource(id = R.string.contentDescription_add_animal)
         )
       }
     }

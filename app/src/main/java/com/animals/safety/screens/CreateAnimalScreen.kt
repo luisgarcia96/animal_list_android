@@ -1,5 +1,6 @@
 package com.animals.safety.screens
 
+import android.content.Context
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -18,11 +19,12 @@ import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -43,13 +45,14 @@ fun CreateAnimalScreen(
   onSaveClick:() -> Unit
 ) {
   val scope = rememberCoroutineScope()
+  val context = LocalContext.current
   val snackbarHostState = remember { SnackbarHostState() }
-
-  val name = remember { mutableStateOf("") }
-  val breed = remember { mutableStateOf(Breed.entries[0]) }
-  val age = remember { mutableStateOf("") }
-  val weight = remember { mutableStateOf("") }
-  val height = remember { mutableStateOf("") }
+  
+  val name = rememberSaveable { mutableStateOf("") }
+  val breed = rememberSaveable { mutableStateOf(Breed.entries[0]) }
+  val age = rememberSaveable { mutableStateOf("") }
+  val weight = rememberSaveable { mutableStateOf("") }
+  val height = rememberSaveable { mutableStateOf("") }
 
   Scaffold(
     modifier = modifier,
@@ -64,7 +67,7 @@ fun CreateAnimalScreen(
           }) {
             Icon(
               imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-              contentDescription = "Go back"
+              contentDescription = stringResource(id = R.string.contentDescription_go_back)
             )
           }
         }
@@ -77,7 +80,17 @@ fun CreateAnimalScreen(
     floatingActionButton = {
       ExtendedFloatingActionButton(
         onClick = {
-          if (verifyAndCreateAnimal(name.value, breed.value, age.value, weight.value, height.value, snackbarHostState, scope)) {
+          if (verifyAndCreateAnimal(
+              name.value,
+              breed.value,
+              age.value,
+              weight.value,
+              height.value,
+              snackbarHostState,
+              scope,
+              context
+            )
+          ) {
             onSaveClick()
           }
         }
@@ -90,11 +103,16 @@ fun CreateAnimalScreen(
   ) { contentPadding ->
     CreateAnimal(
       modifier = Modifier.padding(contentPadding),
-      name = name,
-      breed = breed,
-      age = age,
-      weight = weight,
-      height = height
+      name = name.value,
+      onNameChanged = { name.value = it },
+      breed = breed.value,
+      onBreedChanged = { breed.value = it },
+      age = age.value,
+      onAgeChanged = { age.value = it },
+      weight = weight.value,
+      onWeightChanged = { weight.value = it },
+      height = height.value,
+      onHeightChanged = { height.value = it }
     )
   }
 }
@@ -106,12 +124,13 @@ fun verifyAndCreateAnimal(
   weight: String,
   height: String,
   snackbarHostState: SnackbarHostState,
-  scope: CoroutineScope
+  scope: CoroutineScope,
+  context: Context
 ): Boolean
 {
   if (name.isBlank()) {
     scope.launch {
-      snackbarHostState.showSnackbar("The name must not be empty")
+      snackbarHostState.showSnackbar(context.getString(R.string.issue_name_empty))
     }
 
     return false;
@@ -122,7 +141,7 @@ fun verifyAndCreateAnimal(
     animalAge = age.toInt()
   } catch (e: NumberFormatException) {
     scope.launch {
-      snackbarHostState.showSnackbar("The age is not valid")
+      snackbarHostState.showSnackbar(context.getString(R.string.issue_invalid_age))
     }
 
     return false;
@@ -133,7 +152,7 @@ fun verifyAndCreateAnimal(
     animalWeight = weight.toFloat()
   } catch (e: NumberFormatException) {
     scope.launch {
-      snackbarHostState.showSnackbar("The weight is not valid")
+      snackbarHostState.showSnackbar(context.getString(R.string.issue_invalid_weight))
     }
 
     return false;
@@ -144,7 +163,7 @@ fun verifyAndCreateAnimal(
     animalHeight = height.toFloat()
   } catch (e: NumberFormatException) {
     scope.launch {
-      snackbarHostState.showSnackbar("The height is not valid")
+      snackbarHostState.showSnackbar(context.getString(R.string.issue_invalid_height))
     }
 
     return false;
@@ -167,11 +186,16 @@ fun verifyAndCreateAnimal(
 @Composable
 private fun CreateAnimal(
   modifier: Modifier = Modifier,
-  name: MutableState<String>,
-  age: MutableState<String>,
-  weight: MutableState<String>,
-  height: MutableState<String>,
-  breed: MutableState<Breed>
+  name: String,
+  onNameChanged: (String) -> Unit,
+  age: String,
+  onAgeChanged: (String) -> Unit,
+  weight: String,
+  onWeightChanged: (String) -> Unit,
+  height: String,
+  onHeightChanged: (String) -> Unit,
+  breed: Breed,
+  onBreedChanged: (Breed) -> Unit
 ) {
   val scrollState = rememberScrollState()
 
@@ -196,11 +220,16 @@ private fun CreateAnimalPreview() {
     val height = remember { mutableStateOf("14.7") }
 
     CreateAnimal(
-      name = name,
-      age = age,
-      weight = weight,
-      height = height,
-      breed = breed
+      name = "Milou",
+      onNameChanged = { },
+      age = "6",
+      onAgeChanged = { },
+      weight = "473.6",
+      onWeightChanged = { },
+      height = "14.7",
+      onHeightChanged = { },
+      breed = Breed.entries[0],
+      onBreedChanged = { }
     )
   }
 }

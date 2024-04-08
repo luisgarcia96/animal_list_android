@@ -39,7 +39,7 @@ fun AnimalDetailsScreen(
           }) {
             Icon(
               imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-              contentDescription = "Go back"
+              contentDescription = stringResource(id = R.string.contentDescription_go_back)
             )
           }
         }
