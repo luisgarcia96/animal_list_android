@@ -213,12 +213,6 @@ private fun CreateAnimal(
 @Composable
 private fun CreateAnimalPreview() {
   AimantsDanimauxTheme(dynamicColor = false) {
-    val name = remember { mutableStateOf("Milou") }
-    val breed = remember { mutableStateOf(Breed.entries[0]) }
-    val age = remember { mutableStateOf("6") }
-    val weight = remember { mutableStateOf("473.6") }
-    val height = remember { mutableStateOf("14.7") }
-
     CreateAnimal(
       name = "Milou",
       onNameChanged = { },
