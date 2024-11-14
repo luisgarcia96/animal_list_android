@@ -1,12 +1,17 @@
 package com.animals.safety.screens
 
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -18,10 +23,15 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.animals.safety.R
 import com.animals.safety.data.Animal
 import com.animals.safety.data.AnimalData
@@ -90,23 +100,50 @@ private fun HomeCell(
   animal: Animal,
   onAnimalClick: (Animal) -> Unit,
 ) {
-  //TODO: A compléter
   Box(
     modifier = Modifier
       .fillMaxWidth()
-      .height(20.dp)
+      .padding(16.dp)
+      .height(50.dp)
       .clickable {
         onAnimalClick(animal)
       }
-  )
+  ) {
+    Row {
+      Image(
+        painter = painterResource(id = animal.imageResId),
+        contentDescription = "${animal.name} avatar",
+        modifier = Modifier.padding(end = 16.dp)
+      )
+      Column {
+        Text(animal.name)
+
+        // Use stringResource with the `information` string
+        Text(
+          text = stringResource(
+            id = R.string.information,
+           stringResource(id = animal.breed.translatedName),
+            animal.age,
+            animal.weight,
+            animal.height
+          ),
+          fontSize = 12.sp,
+          color = Color.Gray,
+          maxLines = 2,
+          overflow = TextOverflow.Ellipsis,
+        )
+      }
+    }
+  }
 }
+
 
 @Preview(showBackground = true)
 @Composable
 private fun HomeCellPreview() {
   AimantsDanimauxTheme(dynamicColor = false) {
     HomeCell(
-      animal = Animal(UUID.randomUUID(),"Milou", Breed.DOG, 6, 23.2f, 42.4f),
+      animal = Animal(UUID.randomUUID(), "Milou", breed = Breed.DOG, 6, 23.2f, 42.4f, R.drawable.img_dog),
       onAnimalClick = {}
     )
   }

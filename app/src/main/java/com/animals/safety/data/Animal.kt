@@ -9,5 +9,6 @@ data class Animal(
   val breed: Breed,
   val age: Int,
   val weight: Float,
-  val height: Float
+  val height: Float,
+  val imageResId: Int
 ) : Serializable
